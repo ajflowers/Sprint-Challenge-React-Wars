@@ -20,8 +20,8 @@ const CharCard = props => {
             <p>Born in: {props.birthYear}</p>
             <p>Hair color: {props.hairColor}</p>
             <p>Eye color: {props.eyeColor}</p>
-            <p>Height: {props.height}cm</p>
-            <p>Mass: {props.mass}kg</p>           
+            <p>Height: {props.height} cm ({Math.floor(props.height / 2.54 / 12)}'{Math.round((props.height / 2.54) % 12)}")</p>
+            <p>Mass: {props.mass} kg ({Math.round(props.mass * 2.2)} lbs)</p>           
         </CardDiv>
 
     );

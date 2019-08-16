@@ -28,6 +28,7 @@ const Button = styled.button`
   font-size: 20px;
   border: 0px;
   border-radius: 10px;
+  margin-bottom: 20px;
 
   ${props => (props.type === "null" ? `display: none` : null)}
 `;
