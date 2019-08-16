@@ -15,6 +15,23 @@ const CardsPane = styled.div`
   justify-content: space-around;
 `;
 
+const ButtonDiv = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const Button = styled.button`
+  background: darkblue;
+  color: white;
+  padding: 5px 10px;
+  margin: 10px;
+  font-size: 20px;
+  border: 0px;
+  border-radius: 10px;
+
+  ${props => (props.type === "null" ? `display: none` : null)}
+`;
+
 const App = () => {
   // Try to think through what state you'll need for this app before starting. Then build out
   // the state properties here.
@@ -25,8 +42,8 @@ const App = () => {
   const [people, setPeople] = useState([]);
 
   const [searchURL, setSearchURL] = useState("https://swapi.co/api/people/");
-  const [nextURL, setNextURL] = useState(null);
-  const [prevURL, setPrevURL] = useState(null);
+  const [nextURL, setNextURL] = useState("null");
+  const [prevURL, setPrevURL] = useState("null");
 
   useEffect(() => {
     axios.get(`${searchURL}`)
@@ -36,20 +53,49 @@ const App = () => {
         console.log(charList);
         setPeople(charList);
         console.log(response.data.next);
-        setNextURL(response.data.next);
+        setNextURL(String(response.data.next));
         console.log(response.data.previous);
-        setPrevURL(response.data.previous);      
+        setPrevURL(String(response.data.previous));      
       })
       .catch((err) => {
         console.log(err);
       })
   }, [searchURL])
 
+// function nextButton() {
+//   if (nextURL != null) {
+//     setSearchURL(nextURL);
+//   }
+// }
+// function prevButton() {
+//   console.log=("click");
+//   if (prevURL != null) {
+//     setSearchURL(prevURL);
+//   }
+// }
+
+// function setButtons() {
+//   if (nextURL === null) {
+//     setNextPageStatus("hidden");
+//   } else {
+//     setNextPageStatus("shown");
+//   }
+//   if (prevURL === null) {
+//     setPrevPageStatus("hidden");
+//   } else {
+//     setPrevPageStatus("shown");
+//   }
+// }
+
 
 
   return (
     <div className="App">
       <h1 className="Header">React Wars</h1>
+      <ButtonDiv>
+        <Button type={prevURL} onClick={() => setSearchURL(prevURL)}>Previous Page</Button>           
+        <Button type={nextURL} onClick={() => setSearchURL(nextURL)}>Next Page</Button>
+      </ButtonDiv>
       <CardsPane>
         {people.map(person => {
           return (
